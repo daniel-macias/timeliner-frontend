@@ -51,7 +51,7 @@ export default function Tracker() {
           };
 
           fetchUserTimelines(data.uid);
-          console.log(data);
+          console.log(userTimelines);
       }
     };
     verifyUser();
@@ -66,29 +66,15 @@ export default function Tracker() {
       <div className="private">
         <Navbar logOutFunction={logOut}/>
         <hr />
-        {loading && <div>Loading</div>}
-        {!loading && (
-          <div>
-            <h2>Doing stuff with data </h2>
-          </div>
-        )}
+        {loading && <div>Loading...</div>}
+
         <Box>
           <Grid container >
+          {!loading && (userTimelines.timelines.map(item => (
             <Grid xs={3}>
-              <Timeline />
+            <Timeline name = {item.name} description = {item.description} tid = {item._id} lastEdited = {item.updatedAt}/>
             </Grid>
-            <Grid xs={3}>
-              <Timeline />
-            </Grid>
-            <Grid xs={3}>
-              <Timeline />
-            </Grid>
-            <Grid xs={3}>
-              <Timeline />
-            </Grid>
-            <Grid xs={3}>
-              <Timeline />
-            </Grid>
+          )))}
             <Grid xs={3}>
               <AddTimelineButton />
             </Grid>
